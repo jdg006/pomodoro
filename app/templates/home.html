@@ -1,0 +1,16 @@
+<div class="jumbotron">
+  <h1>Pomodoro</h1>
+  </div>
+<div class="row">
+  <div class="col-md-4">
+    <h1>Tasks</h1>
+  </div>
+  <div class="col-md-8">
+  <h1>Sessions</h1>
+
+  <p ng-show="!hideStartButton">Start work session: <button ng-click= "home.startSession()">Start</button></p>
+  <p ng-show="hideStartButton">Reset work session: <button ng-click= "home.resetSession()">Reset</button></p>
+
+  <p>{{formattedTime}}</p>
+  </div>
+</div>
