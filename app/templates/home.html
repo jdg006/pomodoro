@@ -3,14 +3,32 @@
   </div>
 <div class="row">
   <div class="col-md-4">
-    <h1>Tasks</h1>
+    <h1>To do</h1>
+
+    <form class="new-task">
+      <br><button class="btn btn-primary" type="submit" ng-click="home.newTask()">Add Task</button>
+       <input ng-model="home.newTaskMessage" type="text" name="taskInput" value=""><br>
+      <br>
+    </form>
+
+    <ul>
+      <li class="tasks" ng-repeat="task in home.pendingTasks | orderBy: '-id'">{{task.text}} <button ng-click="home.completeTask(task)">Complete</button></li>
+    </ul>
   </div>
-  <div class="col-md-8">
-  <h1>Sessions</h1>
 
-  <p ng-show="!hideStartButton">Start work session: <button ng-click= "home.startSession()">Start</button></p>
-  <p ng-show="hideStartButton">Reset work session: <button ng-click= "home.resetSession()">Reset</button></p>
-
-  <p>{{formattedTime}}</p>
+  <div class="col-md-4">
+    <h1>Sessions</h1>
+    <p>Session Type: {{sessionType}}</p>
+    <button ng-show="!hideStartButton" ng-click= "home.startSession()">Start</button>
+    <button ng-show="hideStartButton" ng-click= "home.stopSession()">Stop</button>
+    <button ng-show="hideStartButton" ng-click="home.resetSession()">Reset</button>
+    <h3>Time: {{formattedTime}}</h3>
+  </div>
+  <div class="col-md-4">
+    <h1>Completed Tasks</h1>
+    <button ng-show="home.completedTasks.length != 0" ng-click="home.deleteCompletedTasks()">Delete Completed Tasks</button>
+    <ul>
+      <li ng-repeat="task in home.completedTasks">{{task.text}}</li>
+    </ul>
   </div>
 </div>

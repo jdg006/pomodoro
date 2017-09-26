@@ -10,12 +10,29 @@
     <ui-view></ui-view>
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-
     <!-- AngularUI Router -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+    <!-- FireBase -->
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <script>
+      // Initialize the Firebase SDK
+      var config = {
+        apiKey: "AIzaSyAI510MWIWQp6p9ArhMhemb2-mPWZA1YEQ",
+        authDomain: "pomodoro-ea59d.firebaseapp.com",
+        databaseURL: "https://pomodoro-ea59d.firebaseio.com",
+        projectId: "pomodoro-ea59d",
+        storageBucket: "pomodoro-ea59d.appspot.com",
+        messagingSenderId: "1040086850488"
+      };
+        firebase.initializeApp(config);
+    </script>
     <!-- Application Files -->
     <script src="/scripts/app.js"></script>
     <script src="/scripts/controllers/HomeCtrl.js"></script>
-    <script src="/scripts/directives/timer.js"></script>
+    <script src="/scripts/services/Task.js"></script>
+    <script src="/scripts/services/Session.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.2.0/buzz.min.js"></script>
 </body>
 </html>

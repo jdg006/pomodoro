@@ -1,62 +1,56 @@
 (function() {
+    function HomeCtrl($scope, Task, Session, $interval) {
 
-    function HomeCtrl($interval, $scope) {
-      var count = 1500;
-      $scope.hideStartButton= false;
-      $scope.formattedTime = format(count);
+      //variables
+      $scope.sessionType = Session.sessionType;
+      $scope.formattedTime = Session.formattedTime;
+      $scope.hideStartButton = Session.hideStartButton;
+      this.tasks = Task.all;
+      this.completedTasks = Task.getIfCompleted();
+      this.pendingTasks = Task.getIfPending();
 
-      this.startSession = function() {
-        $scope.hideStartButton = true;
-
-        if(count == 1500){
-          count --;
-        }
-        stop = $interval(decriment, 1000);
-
-    };
-
-      function decriment (){
-      if(count === -1 ){
-        $interval.cancel(stop);
-        count = 300;
-        $scope.formattedTime = format(count);
-        $scope.hideStartButton = false;
+      this.completeTask = function(task){
+        Task.complete(task);
       }
 
-      else {
-          $scope.formattedTime = format(count);
-          count --;
-        }
-    };
+      var stop = $interval(update, 1000);
 
+      //functions
 
-
-    function stopSession (){
-      $scope.hideStartButton = false;
-      $interval.cancel(stop);
-
-    }
-    this.resetSession = function(){
-      stopSession();
-      count = 1500;
-      $scope.formattedTime = format(count);
-
-    }
-
-   function format(count){
-      var min = Math.floor(count/60);
-      var sec = Math.floor(count%60);
-      if (sec<10){
-        return min+":0"+sec;
+      this.deleteCompletedTasks = function(){
+        Task.deleteCompletedTasks();
       }
-      else{
-        return min+":"+sec;
-      }
-    };
 
+      this.newTask = function(){
+        var task ={
+          text:this.newTaskMessage,
+          completed: false
+        };
+        Task.add(task);
+        this.newTaskMessage="";
+      };
+
+      this.startSession = function(){
+        Session.startSession();
+      };
+
+      this.stopSession = function(){
+        Session.stopSession();
+      };
+
+      this.resetSession = function(){
+        Session.resetSession();
+      };
+
+      function update(){
+        $scope.sessionType = Session.sessionType;
+        $scope.formattedTime = Session.formattedTime;
+        $scope.hideStartButton = Session.hideStartButton;
+      };
+
+//controller setup
     }
-
     angular
         .module('pomodoro')
-        .controller('HomeCtrl', ['$interval', '$scope', HomeCtrl]);
+        .controller('HomeCtrl', ['$scope', 'Task', 'Session','$interval',HomeCtrl]);
 })();
