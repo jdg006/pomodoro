@@ -1,3 +1,11 @@
-.tasks{
+.titles{
+  padding-left: 10px;
+}
 
+.tasks{
+  font-size: 20px;
+}
+
+.session-type{
+  font-size: 20px;
 }
